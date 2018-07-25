@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Argentum</title>
+</h:head>
+
+<h:body styleClass="main-body">
+	<h:form id="formTable">
+
+
+		<p:inputText id="nameTableFilter"
+			value="#{tableController.nameTableFilter}" />
+		<p:commandButton value="Add table" update=":formTable"
+			action="#{tableController.addTable}" />
+
+		<p:dataTable var="table" value="#{tableController.tableList}">
+			<p:column headerText="Name">
+				<h:outputText value="#{table.name}" />
+			</p:column>
+
+			<p:column headerText="Columns">
+				<div align="center">
+					<p:commandButton process="@this" value="Edit"
+						update=":formTable:columnsDetail"
+						oncomplete="PF('columnsDialog').show()" title="Edit"
+						icon="fa fa-flag" style="margin:24px 24px 0 0">
+						<f:setPropertyActionListener value="#{table}"
+							target="#{tableController.tableSelected}" />
+					</p:commandButton>
+				</div>
+			</p:column>
+
+			<p:column headerText="Constraints">
+				<p:commandButton value="Edit" />
+			</p:column>
+
+			<p:column headerText="Delete">
+				<p:commandButton value="delete" />
+			</p:column>
+
+		</p:dataTable>
+
+		<p:dialog width="60%" header="Edit Columns from Table"
+			widgetVar="columnsDialog" responsive="true" modal="true"
+			showEffect="blind" hideEffect="explode" resizable="false">
+			<p:outputPanel id="columnsDetail" style="text-align:center;">
+
+				<h:panelGrid columns="2">
+					<p:outputLabel for="nameColumn" value="Name" />
+					<p:inputText id="nameColumn" value="#{tableController.fieldSelected.name}"/>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:outputLabel for="type" value="Type" />
+					<p:selectOneMenu id="type" value="#{tableController.fieldSelected.type}" >
+					    <f:selectItems value="#{tableController.columnTypes}"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+				<div align="center">
+					<p:commandButton value="Add Column" action="#{tableController.addColumn}" update=":formTable:columnsDetail"/>
+				</div>
+				
+				<p:dataTable var="field" value="#{tableController.fieldList}">
+					<p:column headerText="Name">
+						<h:outputText value="#{field.name}" />
+					</p:column>
+		
+		
+				</p:dataTable>
+				
+				<div align="center">
+					<p:commandButton value="Finish" action="#{tableController.addFieldsToTable}" oncomplete="PF('columnsDialog').hide()"
+						update=":formTable" style="width:auto"/>
+					<p:commandButton value="Fechar" process="@this"
+						oncomplete="PF('columnsDialog').hide()"
+						update=":formTable"
+						style="width:auto" />
+				</div>
+
+			</p:outputPanel>
+		</p:dialog>
+
+
+
+
+	</h:form>
+</h:body>
+
+
+</html>

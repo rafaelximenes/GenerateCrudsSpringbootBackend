@@ -15,9 +15,11 @@ public class Field implements Serializable{
 	
 	private String fieldType;
 	
-	private Boolean primaryKey;
+	private FieldTypeEnum type;
 	
-	private Boolean foreinKey;
+	private boolean primaryKey;
+	
+	private boolean foreinKey;
 	
 	public Field() {
 		
@@ -44,20 +46,28 @@ public class Field implements Serializable{
 		this.fieldType = fieldType;
 	}
 
-	public Boolean getPrimaryKey() {
+	public boolean getPrimaryKey() {
 		return primaryKey;
 	}
 
-	public void setPrimaryKey(Boolean primaryKey) {
+	public void setPrimaryKey(boolean primaryKey) {
 		this.primaryKey = primaryKey;
 	}
 
-	public Boolean getForeinKey() {
+	public boolean getForeinKey() {
 		return foreinKey;
 	}
 
-	public void setForeinKey(Boolean foreinKey) {
+	public void setForeinKey(boolean foreinKey) {
 		this.foreinKey = foreinKey;
+	}
+
+	public FieldTypeEnum getType() {
+		return type;
+	}
+
+	public void setType(FieldTypeEnum type) {
+		this.type = type;
 	}
 	
 	

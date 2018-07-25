@@ -13,6 +13,8 @@ public class Table implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private String name;
 
 	private List<Field> fields = new ArrayList<Field>();
 	
@@ -24,9 +26,18 @@ public class Table implements Serializable{
 		
 	}
 	
-	public Table(TableRelationship relationship, Table table) {
+	public Table(String name, TableRelationship relationship, Table table) {
+		this.name = name;
 		this.relationship = relationship.getDescription();
 		this.table = relationship != null ? table : null;  
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public void addFieldsInTable(Field field) {
@@ -35,6 +46,10 @@ public class Table implements Serializable{
 	
 	public void addFieldsInTable(Field... field) {
 		fields.addAll(Arrays.asList(field));
+	}
+	
+	public void addFieldsInTable(List<Field> fieldList) {
+		fields.addAll(fieldList);
 	}
 
 	public List<Field> getFields() {
